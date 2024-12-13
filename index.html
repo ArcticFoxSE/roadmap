@@ -14,17 +14,63 @@ body {
     margin:0;
     padding:0;
     font-family: 'Orbitron', sans-serif;
-    background: radial-gradient(circle at center, #400000, #000000 80%);
+    background: #000000;
     color: #ffffff;
     overflow-x: hidden;
+    position: relative;
 }
 
+/* Cosmic Animated Background */
 body::before {
     content: "";
     position: fixed;
     top:0; left:0; right:0; bottom:0;
+    z-index:-2;
+    background: radial-gradient(circle at center, #400000, #000000 80%);
+    animation: hueRotate 60s infinite linear;
+}
+
+/* Subtle Starfield Overlay */
+body::after {
+    content: "";
+    position: fixed;
+    top:0; left:0; right:0; bottom:0;
     z-index:-1;
-    background: radial-gradient(circle at center, rgba(255,255,255,0.05), transparent 70%);
+    background: repeating-radial-gradient(
+        circle at center,
+        rgba(255,255,255,0.03) 0px,
+        rgba(255,255,255,0.03) 1px,
+        transparent 2px,
+        transparent 100%
+    );
+    animation: twinkle 4s infinite ease-in-out;
+    opacity:0.4;
+}
+
+@keyframes hueRotate {
+    0% {filter: hue-rotate(0deg);}
+    100% {filter: hue-rotate(360deg);}
+}
+
+@keyframes twinkle {
+    0%, 100% {
+        opacity:0.4;
+    }
+    50% {
+        opacity:0.6;
+    }
+}
+
+/* Fade-in animation keyframes */
+@keyframes fadeInUp {
+    0% {
+        opacity:0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity:1;
+        transform: translateY(0);
+    }
 }
 
 h1, h2 {
@@ -32,11 +78,34 @@ h1, h2 {
     padding:0;
     text-shadow: 0 0 10px rgba(255,255,255,0.6), 0 0 20px rgba(255,255,255,0.4), 0 0 30px rgba(255,255,255,0.2);
 }
-p {
+h1 {
+    font-size: 48px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 50px;
+    margin-top: 0;
+}
+h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 20px; 
+    margin-bottom: 10px;
+}
+
+p, ul {
     margin:0;
     padding:0;
     font-size: 18px;
     line-height: 1.4;
+    color: #e0e0e0;
+}
+ul {
+    list-style: none;
+    margin-top:10px;
+    font-size:16px;
+}
+ul li {
+    margin-bottom:5px;
 }
 
 .timeline {
@@ -51,22 +120,16 @@ p {
 .update {
     position: relative;
     width: 100%;
-    height: 900px; /* Increased to accommodate tall images and spacing */
+    height: 900px;
     margin-bottom: 200px;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .update:hover {
     transform: scale(1.01);
+    box-shadow: 0 0 40px rgba(255,255,255,0.2);
 }
 
-.update h1 {
-    font-size: 48px;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 50px;
-    margin-top: 0;
-}
-
+/* Arrows */
 .arrow {
     position: relative;
     width: 40px;
@@ -74,6 +137,16 @@ p {
     box-shadow: 0 0 15px currentColor, 0 0 30px currentColor;
     border-radius: 10px;
     background: currentColor;
+    animation: pulseArrow 2s infinite alternate;
+}
+
+@keyframes pulseArrow {
+    0% {
+        transform: translateY(-5px);
+    }
+    100% {
+        transform: translateY(5px);
+    }
 }
 
 .arrow::before {
@@ -88,6 +161,15 @@ p {
     filter: drop-shadow(0 0 15px currentColor);
 }
 
+.arrow-container {
+    position: absolute;
+    top: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-decoration: none;
+}
+
+/* Side text panels */
 .side-text {
     position: absolute;
     width: 420px;
@@ -95,24 +177,179 @@ p {
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    transition: box-shadow 0.3s ease, transform 0.3s ease, background 0.3s ease;
     text-align: center;
 }
 .side-text:hover {
     box-shadow: 0 0 20px rgba(255,255,255,0.4);
     transform: translateY(-5px);
-}
-.side-text h2 {
-    font-size: 24px;
-    font-weight: 700;
-    margin-top: 20px; 
-    margin-bottom: 10px;
+    background: rgba(255,255,255,0.1);
 }
 .side-text img {
-    width: 400px;
+    width: 100%;
+    max-width: 400px;
     height: auto;
     display: block;
     margin: 0 auto 10px auto;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+.side-text img:hover {
+    transform: scale(1.05);
+}
+
+/* Positioning of panels for Update 15.5 */
+.update15-5 .left1 {
+    top: 380px;
+    left: 10%; 
+}
+.update15-5 .left2 {
+    top: 200px;
+    left: 60%;
+}
+.update15-5 .right1 {
+    top: 580px;
+    left: 50%;
+    transform: translateX(50px);
+}
+
+/* Update 16 positions */
+.update16 .left1 {
+    top: 180px;
+    left: 10%;
+}
+.update16 .left2 {
+    top: 500px;
+    left: 10%;
+}
+.update16 .right1 {
+    top: 340px;
+    left: 60%;
+}
+
+/* Update 17 positions */
+.update17 .left1 {
+    top: 180px;
+    left: 10%;
+}
+.update17 .right1 {
+    top: 180px;
+    left: 60%;
+}
+.update17 .right2 {
+    top: 650px;
+    left: 60%;
+}
+
+/* Update 18 positions */
+.update18 .left1 {
+    top: 180px;
+    left: 10%;
+}
+.update18 .left2 {
+    top: 400px;
+    left: 10%;
+}
+.update18 .right1 {
+    top: 340px;
+    left: 60%;
+}
+
+/* Color Schemes */
+.update15-5 h1 {
+    color: #ff9900;
+    text-shadow: 0 0 15px #ff9900, 0 0 30px #ff9900;
+}
+.update15-5 .arrow {
+    color: #ff9900;
+    background: linear-gradient(#ff9900, #cc6600);
+}
+
+.update16 h1 {
+    color: #ff0000;
+    text-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000;
+}
+.update16 .arrow {
+    color: #ff0000;
+    background: linear-gradient(#ff0000, #aa0000);
+}
+
+.update17 h1 {
+    color: #0066ff;
+    text-shadow: 0 0 15px #0066ff, 0 0 30px #0066ff;
+}
+.update17 .arrow {
+    color: #0066ff;
+    background: linear-gradient(#0066ff, #003399);
+}
+
+.update18 h1 {
+    color: #00cc00;
+    text-shadow: 0 0 15px #00cc00, 0 0 30px #00cc00;
+}
+.update18 .arrow {
+    color: #00cc00;
+    background: linear-gradient(#00cc00, #006600);
+}
+
+/* Sidebar Navigation */
+.sidebar {
+    position: fixed;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    z-index: 2000;
+    background: linear-gradient(to bottom, #111, #222);
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 0 20px rgba(255,255,255,0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items:center;
+}
+
+.sidebar a {
+    display:block;
+    color:#fff;
+    text-decoration:none;
+    font-size:14px;
+    padding:10px;
+    border-radius:5px;
+    text-transform: uppercase;
+    letter-spacing:1px;
+    background: rgba(255,255,255,0.07);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    text-align:center;
+}
+.sidebar a:hover {
+    transform: scale(1.05);
+    box-shadow:0 0 10px rgba(255,255,255,0.5);
+    background: rgba(255,255,255,0.1);
+}
+
+.sidebar a.active {
+    background: linear-gradient(90deg, #ff9900, #ff0000);
+    box-shadow:0 0 15px #ff9900, 0 0 30px #ff0000;
+    transform: scale(1.1);
+    font-weight:700;
+}
+
+/* Remove initial transform from .fade-in so they start at correct positions */
+.fade-in {
+    opacity:0;
+}
+
+.appear {
+    animation: fadeInUp 0.8s forwards ease-out;
+}
+
+/* Responsive adjustments for smaller screens */
+@media(max-width:900px) {
+    h1 { font-size: 36px; }
+    h2 { font-size: 20px; }
+    p, ul { font-size: 16px; }
+    .side-text { width: 350px; }
 }
 
 @media(max-width:600px){
@@ -123,138 +360,83 @@ p {
     }
     .update {
         height: auto;
+        margin-bottom: 100px;
     }
-}
 
-/* Update 15.5 (Orange) */
-.update15-5 h1 {
-    color: #ff9900;
-    text-shadow: 0 0 15px #ff9900, 0 0 30px #ff9900;
-}
-.update15-5 .arrow {
-    color: #ff9900;
-    background: linear-gradient(#ff9900, #cc6600);
-}
-.update15-5 .arrow-container {
-    position: absolute;
-    top: 120px;
-    left: 50%;
-    transform: translateX(-50%);
-    text-decoration: none;
-}
-.update15-5 .left1 {
-    right: 60%;
-    top: 380px;
-}
-.update15-5 .left2 {
-    left: 60%;
-    top: 200px; /* adjusted spacing */
-}
+    /* Transform sidebar into a top nav bar on mobile */
+    .sidebar {
+        top: 0;
+        left: 0;
+        transform: none;
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
+        border-radius:0;
+        box-shadow:none;
+        background: rgba(0,0,0,0.7);
+        padding:5px;
+    }
 
-/* Update 16 (Red) */
-.update16 h1 {
-    color: #ff0000;
-    text-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000;
-}
-.update16 .arrow {
-    color: #ff0000;
-    background: linear-gradient(#ff0000, #aa0000);
-}
-.update16 .arrow-container {
-    position: absolute;
-    top: 120px;
-    left: 50%;
-    transform: translateX(-50%);
-    text-decoration: none;
-}
-.update16 .left1 {
-    right: 60%;
-    top: 180px;
-}
-.update16 .left2 {
-    right: 60%;
-    top: 500px; /* adjusted spacing */
-}
-.update16 .right1 {
-    left: 60%;
-    top: 340px;
-}
+    .sidebar a {
+        font-size:12px;
+        padding:5px 10px;
+    }
 
-/* Update 17 (Blue) */
-.update17 h1 {
-    color: #0066ff;
-    text-shadow: 0 0 15px #0066ff, 0 0 30px #0066ff;
-}
-.update17 .arrow {
-    color: #0066ff;
-    background: linear-gradient(#0066ff, #003399);
-}
-.update17 .arrow-container {
-    position: absolute;
-    top: 120px;
-    left: 50%;
-    transform: translateX(-50%);
-    text-decoration: none;
-}
-.update17 .left1 {
-    right: 60%;
-    top: 180px; /* first block on left */
-}
-.update17 .right1 {
-    left: 60%;
-    top: 180px; /* first block on right */
-}
-.update17 .right2 {
-    left: 60%;
-    top: 650px; /* second block on right, moved down to avoid overlap */
-}
+    /* Adjust arrow size on mobile */
+    .arrow {
+        height: 200px;
+    }
+    .arrow::before {
+        border-left:20px solid transparent;
+        border-right:20px solid transparent;
+        border-top:30px solid currentColor;
+        bottom: -30px;
+    }
 
-/* Update 18 (Green) */
-.update18 h1 {
-    color: #00cc00;
-    text-shadow: 0 0 15px #00cc00, 0 0 30px #00cc00;
-}
-.update18 .arrow {
-    color: #00cc00;
-    background: linear-gradient(#00cc00, #006600);
-}
-.update18 .arrow-container {
-    position: absolute;
-    top: 120px;
-    left: 50%;
-    transform: translateX(-50%);
-    text-decoration: none;
-}
-.update18 .left1 {
-    right: 60%;
-    top: 180px;
-}
-.update18 .left2 {
-    right: 60%;
-    top: 400px; /* moved down for spacing */
-}
-.update18 .right1 {
-    left: 60%;
-    top: 340px; /* placed between left1 and left2 */
+    .update h1 {
+        font-size: 30px;
+        margin-bottom:30px;
+    }
+
+    .timeline {
+        padding-top: 80px;
+    }
+
+    .side-text {
+        width: 90%;
+    }
+
+    .side-text img {
+        max-width: 100%;
+    }
 }
 </style>
 </head>
 <body>
+
+<!-- Sidebar Navigation -->
+<div class="sidebar">
+    <a href="#update15-5" data-target="update15-5">Update 15.5</a>
+    <a href="#update16" data-target="update16">Update 16</a>
+    <a href="#update17" data-target="update17">Update 17</a>
+    <a href="#update18" data-target="update18">Update 18</a>
+</div>
+
 <div class="timeline">
 
     <!-- Update 15.5 -->
     <div class="update update15-5" id="update15-5">
-        <h1>Update 15.5</h1>
-        <a class="arrow-container" href="#update16"><div class="arrow"></div></a>
-        <div class="side-text left1">
+        <h1 class="fade-in">Update 15.5</h1>
+        <a class="arrow-container fade-in" href="#update16"><div class="arrow"></div></a>
+        <div class="side-text left1 fade-in">
             <h2>Started new season for Clan Leagues</h2>
             <p>Introduced an exciting new season for clan competitions.</p>
         </div>
-        <div class="side-text left2">
+        <div class="side-text left2 fade-in">
             <h2>Enabled Trading</h2>
             <p>Players can now trade items and gears with each other.</p>
         </div>
-        <div class="side-text right1">
+        <div class="side-text right1 fade-in">
             <h2>Bug Fixes & Codes</h2>
             <p>Bug fixes and two new codes:</p>
             <ul>
@@ -266,40 +448,40 @@ p {
 
     <!-- Update 16 -->
     <div class="update update16" id="update16">
-        <h1>Next Update 16</h1>
-        <a class="arrow-container" href="#update17"><div class="arrow"></div></a>
-        <div class="side-text left1">
+        <h1 class="fade-in">Next Update 16</h1>
+        <a class="arrow-container fade-in" href="#update17"><div class="arrow"></div></a>
+        <div class="side-text left1 fade-in">
             <img src="Leaks/Omega clan/image2.png" alt="icon">
             <h2>New Gears</h2>
             <p>Adding more Gears for even more multipliers</p>
         </div>
-        <div class="side-text left2">
+        <div class="side-text left2 fade-in">
             <img src="Leaks/Omega clan/omegaclan-1.png" alt="icon">
             <h2>New Clan Season</h2>
-            <p>Starting a New season for clans</p>
+            <p>Starting a new season for clans</p>
         </div>
-        <div class="side-text right1">
+        <div class="side-text right1 fade-in">
             <img src="Leaks/Omega clan/image5.png" alt="icon">
             <h2>Top 3/5 Clan Rewards</h2>
-            <p>Adding more rewards for top 3 or 5 clans in a season to motivate players to become the best of the best</p>
+            <p>More rewards for top clans to motivate players</p>
         </div>
     </div>
 
     <!-- Update 17 -->
     <div class="update update17" id="update17">
-        <h1>Update 17</h1>
-        <a class="arrow-container" href="#update18"><div class="arrow"></div></a>
-        <div class="side-text left1">
+        <h1 class="fade-in">Update 17</h1>
+        <a class="arrow-container fade-in" href="#update18"><div class="arrow"></div></a>
+        <div class="side-text left1 fade-in">
             <img src="Leaks/Galactic gym/image4.png" alt="icon">
             <h2>Galactic Gym</h2>
             <p>A brand new Galactic Gym featuring 3 new alters.</p>
         </div>
-        <div class="side-text right1">
+        <div class="side-text right1 fade-in">
             <img src="Leaks/Galactic gym/image5.png" alt="icon">
-            <h2>New Body alters</h2>
+            <h2>New Body Alters</h2>
             <p>Introducing new alters to amplify your workout multipliers.</p>
         </div>
-        <div class="side-text right2">
+        <div class="side-text right2 fade-in">
             <img src="Leaks/Galactic gym/image.png" alt="icon">
             <h2>Boosts</h2>
             <p>Gain temporary boosts to maximize your training efficiency.</p>
@@ -308,25 +490,61 @@ p {
 
     <!-- Update 18 -->
     <div class="update update18" id="update18">
-        <h1>Update 18</h1>
-        <div class="arrow-container"><div class="arrow"></div></div>
-        <div class="side-text left1">
+        <h1 class="fade-in">Update 18</h1>
+        <div class="arrow-container fade-in"><div class="arrow"></div></div>
+        <div class="side-text left1 fade-in">
             <img src="" alt="icon">
             <h2>Christmas Event Gym</h2>
             <p>A festive limited-time gym to celebrate the holiday season.</p>
         </div>
-        <div class="side-text left2">
+        <div class="side-text left2 fade-in">
             <img src="Leaks/Christmas/image.png" alt="icon">
             <h2>Limited Cash Body Alters</h2>
-            <p>Exclusive body alters available for a limited time, purchased with event cash.</p>
+            <p>Exclusive alters for a limited time, purchased with event cash.</p>
         </div>
-        <div class="side-text right1">
+        <div class="side-text right1 fade-in">
             <img src="Leaks/Christmas/image2.png" alt="icon">
             <h2>Limited Time Gears</h2>
-            <p>Special holiday-themed gears that boost your training during the event.</p>
+            <p>Holiday-themed gears that boost your training during the event.</p>
         </div>
     </div>
 
 </div>
+
+<script>
+// Intersection Observer for fade-in effects
+const faders = document.querySelectorAll('.fade-in, .side-text');
+const appearOptions = {
+  threshold: 0.1,
+  rootMargin: "0px 0px -100px 0px"
+};
+const appearOnScroll = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if(!entry.isIntersecting) return;
+    entry.target.classList.add('appear');
+    observer.unobserve(entry.target);
+  });
+}, appearOptions);
+
+faders.forEach(fader => {
+  appearOnScroll.observe(fader);
+});
+
+// Highlight active link in sidebar
+const sections = document.querySelectorAll('.update');
+const navLinks = document.querySelectorAll('.sidebar a');
+
+const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting) {
+            navLinks.forEach(link => link.classList.remove('active'));
+            const activeLink = document.querySelector(`.sidebar a[data-target="${entry.target.id}"]`);
+            if(activeLink) activeLink.classList.add('active');
+        }
+    });
+}, {threshold: 0.5});
+
+sections.forEach(sec => sectionObserver.observe(sec));
+</script>
 </body>
 </html>
