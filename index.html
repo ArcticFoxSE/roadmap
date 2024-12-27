@@ -442,40 +442,44 @@ ul li {
 }
 
 
-
-.image16{
-    background-image: url("Leaks/Banners/chisrtmasbannerd-3.png");
-    background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  /* Se till att du ger en höjd så att bilden faktiskt syns */
+.image16 {
+  /* Gör själva “kortet” lagom stort */
   width: 100%;
-  min-height: 300px; 
-  /* bakgrundsfärgen om det blir yta runt bilden */
-  background-color: transparent; }
-    .image17 {
-  background-image: url("Leaks/Banners/galaxybanner-3.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  /* Se till att du ger en höjd så att bilden faktiskt syns */
-  width: 100%;
-  min-height: 300px; 
-  /* bakgrundsfärgen om det blir yta runt bilden */
-  background-color: transparent; 
+  height: 400px;              /* Justera höjd efter önskemål */
+  border-radius: 15px;        /* rundade hörn */
+  overflow: hidden;           /* se till att hörnen klipps */
+  
+  /* Här lägger vi mörk overlay + bilden i samma background */
+  background: 
+    linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+    url("Leaks/Banners/chisrtmasbannerd-3.png") 
+    no-repeat center;
+  background-size: cover;     /* fyller container, bilden kan beskäras */
+  background-blend-mode: darken; /* blandar overlay & bild = mörkläggning */
 }
 
-.image18{
-    background-image: url("Leaks/Banners/jurrasic-2.png");
-    background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  /* Se till att du ger en höjd så att bilden faktiskt syns */
+.image17, .image18 {
+  /* Samma princip för de andra bilderna */
   width: 100%;
-  min-height: 300px; 
-  /* bakgrundsfärgen om det blir yta runt bilden */
-  background-color: transparent; 
+  height: 400px;
+  border-radius: 15px;
+  overflow: hidden;
+  background: 
+    linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+    url("Leaks/Banners/galaxybanner-3.png") no-repeat center;
+  background-size: cover;
+  background-blend-mode: darken;
 }
+
+/* Byt bara ut url(...) efter vilken .image du vill styla */
+.image18 {
+  background: 
+    linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+    url("Leaks/Banners/jurrasic-2.png") no-repeat center;
+  background-size: cover;
+  background-blend-mode: darken;
+}
+
 </style>
 </head>
 <body>
