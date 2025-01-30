@@ -313,8 +313,7 @@
 </head>
 <body>
 
-  <!-- SNOWFLAKES -->
-  <div id="snowflakes"></div>
+
   
   <!-- SIDEBAR NAV -->
   <div class="sidebar">
@@ -447,18 +446,7 @@
 
     sections.forEach(sec => sectionObserver.observe(sec));
 
-    // Snowflake Spawner
-    function createSnowflake() {
-      const snowflake = document.createElement('div');
-      snowflake.classList.add('snowflake');
-      snowflake.textContent = '❄️';
-      snowflake.style.left = Math.random() * 100 + 'vw';
-      snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
-      snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
-      document.getElementById('snowflakes').appendChild(snowflake);
-      setTimeout(() => snowflake.remove(), 6000);
-    }
-    setInterval(createSnowflake, 300);
+    
   </script>
 </body>
 </html>
