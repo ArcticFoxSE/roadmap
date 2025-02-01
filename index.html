@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Gym League Roadmap</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roadmap to Greatness</title>
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -13,32 +13,43 @@
   />
   
   <style>
+    /* === Global Variables & Base Styles === */
+    :root {
+      --primary-bg: #000;
+      --secondary-bg: rgba(0, 0, 0, 0.9);
+      /* Default accent colors (initially set to the first update's colors) */
+      --accent1: #ff4500;
+      --accent2: #ff6347;
+      --neon-glow: rgba(255, 69, 0, 0.8);
+      --text-color: #fff;
+      --content-bg: rgba(0, 0, 0, 0.8);
+      --banner-overlay: rgba(0,0,0,0.35);
+    }
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
     body {
       font-family: 'Montserrat', sans-serif;
-      background: #000;
-      color: #fff;
+      background: var(--primary-bg);
+      color: var(--text-color);
       overflow-x: hidden;
-      position: relative;
       line-height: 1.6;
-      font-size: 18px; /* Base size on desktop */
+      font-size: 18px;
+      position: relative;
+      transition: background 0.5s;
     }
 
-    /* COSMIC BACKGROUND + STARFIELD */
+    /* === Cosmic Background & Starfield Effects === */
     body::before {
       content: "";
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
+      inset: 0;
       z-index: -3;
       background: radial-gradient(circle at center, #2e0e0e, #000 80%);
-      animation: hueRotate 50s infinite linear;
+      animation: hueRotate 60s infinite linear;
     }
     @keyframes hueRotate {
       0% { filter: hue-rotate(0deg); }
@@ -47,7 +58,7 @@
     body::after {
       content: "";
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
+      inset: 0;
       z-index: -2;
       background: repeating-radial-gradient(
         circle at center,
@@ -56,367 +67,435 @@
         transparent 2px,
         transparent 100%
       );
-      animation: twinkle 4s infinite ease-in-out;
+      animation: twinkle 5s infinite ease-in-out;
       opacity: 0.45;
     }
     @keyframes twinkle {
       0%, 100% { opacity: 0.4; }
-      50%       { opacity: 0.65; }
+      50% { opacity: 0.65; }
     }
 
-    /* SNOWFLAKE ANIMATION */
-    #snowflakes {
+    /* === Scroll Progress Bar === */
+    #progressContainer {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      pointer-events: none;
-      z-index: 9999;
-      overflow: hidden;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.1);
+      z-index: 4000;
     }
-    .snowflake {
-      position: absolute;
-      top: -50px;
-      color: #fff !important;
-      font-size: 1em;
-      opacity: 0.8;
-      animation: fall linear infinite;
-    }
-    @keyframes fall {
-      0% { transform: translateY(0) rotate(0deg); }
-      100% { transform: translateY(100vh) rotate(720deg); }
+    #progressBar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      width: 0%;
+      transition: width 0.1s ease-out;
     }
 
-    /* SIDEBAR NAVIGATION */
-    .sidebar {
+    /* === Fixed Top Navigation Bar === */
+    .top-nav {
       position: fixed;
-      top: 20px;
-      left: 20px;
-      z-index: 2000;
-      background: rgba(0,0,0,0.8);
-      border-radius: 8px;
-      padding: 10px;
-      box-shadow: 0 0 10px rgba(255,255,255,0.3);
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      width: 130px;
+      top: 5px;
+      left: 0;
+      width: 100%;
+      background: var(--secondary-bg);
+      padding: 10px 0;
+      z-index: 3500;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+      transition: background 0.5s;
     }
-    .sidebar a {
-      color: #fff;
-      text-decoration: none;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-size: 14px;
-      padding: 8px 10px;
-      border-radius: 4px;
-      background: rgba(255,255,255,0.1);
+    .top-nav h1 {
       text-align: center;
-      transition: all 0.3s ease;
+      font-size: 26px;
+      margin-bottom: 5px;
+      color: var(--accent1);
+      text-shadow: 0 0 8px var(--neon-glow);
+      transition: color 0.5s, text-shadow 0.5s;
     }
-    .sidebar a:hover {
-      background: rgba(255,255,255,0.2);
+    .top-nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+    .top-nav a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-size: 16px;
+      padding: 6px 12px;
+      border-radius: 4px;
+      transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .top-nav a:hover {
+      background: rgba(255, 255, 255, 0.15);
       transform: scale(1.05);
-      box-shadow: 0 0 12px rgba(255,255,255,0.5);
     }
-    .sidebar a.active {
-      background: linear-gradient(90deg, #ff9900, #ff0000);
-      box-shadow: 0 0 15px #ff9900, 0 0 30px #ff0000;
-      transform: scale(1.07);
-      font-weight: 700;
+    /* Active link colors will be set dynamically */
+    .top-nav a.active {
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      box-shadow: 0 0 15px var(--neon-glow);
     }
 
-    /* MAIN TIMELINE WRAPPER */
+    /* === Epic Alternating Timeline Layout === */
     .timeline {
-      width: 90%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 100px 0;
-      display: flex;
-      flex-direction: column;
-      gap: 100px; /* space between each update block */
-    }
-
-    .update-block {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-    }
-    
-    /* BANNER */
-    .update-banner {
-      width: 90%;
-      max-width: 1000px;
-      height: 300px;
-      border-radius: 10px;
-      overflow: hidden;
       position: relative;
-      margin: 0 auto;
-      box-shadow: 0 0 20px rgba(255,255,255,0.2);
-      transition: transform 0.3s, box-shadow 0.3s;
+      max-width: 1200px;
+      margin: 120px auto 50px;
+      padding: 40px 40px;
     }
-    .update-banner:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 30px rgba(255,255,255,0.4);
-    }
-    .update-banner::before {
+    /* Show the central vertical line on desktop */
+    .timeline::after {
       content: "";
       position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0.35);
-      z-index: 1;
+      width: 6px;
+      background: linear-gradient(180deg, var(--accent1), var(--accent2));
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -3px;
+      box-shadow: 0 0 20px var(--neon-glow);
+      transition: background 0.5s, box-shadow 0.5s;
     }
-    .update-banner h1 {
+    .timeline-item {
       position: relative;
-      z-index: 2;
-      color: #fff;
-      font-size: 36px;
-      text-align: center;
-      top: 50%;
-      transform: translateY(-50%);
-      text-shadow: 0 0 8px rgba(255,255,255,0.9);
-    }
-
-    /* Banner backgrounds */
-    .banner15-5 {
-      background: url("https://tr.rbxcdn.com/180DAY-d804b670c714c3a73f63b688cb78e71c/768/432/Image/Webp/noFilter") center/cover no-repeat;
-    }
-    .banner16 {
-      background: url("Leaks/Banners/chisrtmasbannerd-3.png") center/cover no-repeat;
-    }
-    .banner17 {
-      background: url("Leaks/Banners/Gymgame5050g-1.png") center/cover no-repeat;
-    }
-    .banner18 {
-      background: url("Leaks/Banners/aquaman2).png") center/cover no-repeat;
-    }
-
-    /* UPDATE CONTENT CARDS */
-    .update-content {
-      width: 90%;
-      max-width: 1000px;
-      background: rgba(255,255,255,0.07);
-      border-radius: 8px;
-      padding: 30px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.4);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .update-content:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 25px rgba(255,255,255,0.2);
-    }
-    .update-content h2 {
-      margin-bottom: 10px;
-      font-size: 22px;
-      color: #eaeaea;
-      text-shadow: 0 0 6px rgba(255,255,255,0.4);
-    }
-    .update-content p, .update-content ul {
-      font-size: 18px;
-      line-height: 1.7;
-    }
-    .update-content ul {
-      list-style: disc inside; /* easier to see bullet points on mobile */
-      margin-top: 8px;
-    }
-    .update-content ul li {
-      margin-bottom: 6px;
-    }
-
-    /* FADE-IN */
-    .fade-in {
+      width: 50%;
+      padding: 20px 30px;
       opacity: 0;
       transform: translateY(30px);
     }
-    .appear {
-      animation: fadeInUp 0.8s forwards ease-out;
+    .timeline-item.appear {
+      animation: fadeInUp 0.9s forwards ease-out;
     }
     @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .timeline-item.left {
+      left: 0;
+      text-align: right;
+    }
+    .timeline-item.right {
+      left: 50%;
+      text-align: left;
+    }
+    .timeline-item::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: var(--accent1);
+      border: 4px solid var(--accent2);
+      top: 30px;
+      border-radius: 50%;
+      z-index: 1;
+      box-shadow: 0 0 10px var(--neon-glow);
+      transition: background 0.5s, border-color 0.5s, box-shadow 0.5s;
+    }
+    .timeline-item.left::after { right: -10px; }
+    .timeline-item.right::after { left: -10px; }
+
+    /* === Update-Specific Colors (for identification; dynamic update via JS) === */
+    .timeline-item.update15 { /* Red–orange scheme */ }
+    .timeline-item.update16 { /* Purple scheme */ }
+    .timeline-item.update17 { /* Blue scheme */ }
+    .timeline-item.update18 { /* Teal scheme */ }
+
+    /* === Timeline Content Card === */
+    .timeline-content {
+      background: var(--content-bg);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .timeline-content:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 30px var(--neon-glow);
     }
 
-    /* RESPONSIVE TWEAKS */
+    /* === Timeline Banner === */
+    .timeline-banner {
+      position: relative;
+      height: 220px;
+      border-radius: 8px 8px 0 0;
+      overflow: hidden;
+      margin-bottom: 15px;
+    }
+    .timeline-banner h1 {
+      position: absolute;
+      bottom: 10px;
+      left: 20px;
+      color: #fff;
+      font-size: 32px;
+      text-shadow: 0 0 10px rgba(0,0,0,0.7);
+      margin: 0;
+      animation: glowText 2s infinite alternate;
+    }
+    @keyframes glowText {
+      from { text-shadow: 0 0 8px var(--neon-glow); }
+      to { text-shadow: 0 0 20px var(--neon-glow); }
+    }
+    /* Parallax effect for banner backgrounds on desktop */
+    @media (min-width: 768px) {
+      .timeline-banner { background-attachment: fixed; }
+    }
+
+    /* === Timeline Text Content === */
+    .timeline-text {
+      padding: 0 10px;
+    }
+    .timeline-text h2 {
+      font-size: 20px;
+      margin-bottom: 8px;
+      color: #ffcc00;
+    }
+    .timeline-text p,
+    .timeline-text ul {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    .timeline-text ul {
+      list-style: disc inside;
+      margin-top: 8px;
+    }
+    .timeline-text ul li { margin-bottom: 4px; }
+
+    /* === Banner Backgrounds === */
+    .banner15-5 {
+      background: url("https://tr.rbxcdn.com/180DAY-d804b670c714c3a73f63b688cb78e71c/768/432/Image/Webp/noFilter")
+        center/cover no-repeat;
+    }
+    .banner16 {
+      background: url("Leaks/Banners/chisrtmasbannerd-3.png")
+        center/cover no-repeat;
+    }
+    .banner17 {
+      background: url("Leaks/Banners/Gymgame5050g-1.png")
+        center/cover no-repeat;
+    }
+    .banner18 {
+      background: url("Leaks/Banners/aquaman2).png")
+        center/cover no-repeat;
+    }
+
+    /* === Back to Top Button === */
+    #backToTop {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      color: var(--text-color);
+      padding: 12px 16px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 0 20px var(--neon-glow);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s;
+      z-index: 3500;
+      font-size: 20px;
+      text-align: center;
+    }
+    #backToTop.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    #backToTop:hover { animation: pulse 1s infinite; }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    /* === Custom Scrollbar === */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--primary-bg); }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      border-radius: 4px;
+    }
+
+    /* === Responsive Adjustments for Mobile === */
     @media (max-width: 768px) {
-      /* Slightly reduce the gap between updates */
+      /* Make the timeline items take up the full width */
       .timeline {
-        gap: 70px;
-        padding-top: 80px;
+        padding: 40px 20px;
       }
-
-      /* Reduce banner height on tablets */
-      .update-banner {
-        height: 220px;
+      /* Hide the central vertical line on mobile */
+      .timeline::after {
+        display: none;
       }
-      .update-banner h1 {
-        font-size: 24px;
+      /* Timeline items now span the entire width */
+      .timeline-item {
+        width: 100%;
+        margin: 0;
+        padding: 20px 20px;
+        text-align: left !important;
       }
-      .update-content {
-        padding: 25px; /* slightly less padding on tablet */
+      /* Adjust timeline item dot position if needed */
+      .timeline-item::after {
+        left: 10px;
       }
-      .update-content h2 {
-        font-size: 20px;
-      }
-      .update-content p, .update-content ul {
-        font-size: 16px; /* reduce body text a bit */
-        line-height: 1.8; /* increase line-height for breathing room */
+      /* Allow top navigation to wrap */
+      .top-nav ul {
+        flex-wrap: wrap;
       }
     }
-
     @media (max-width: 480px) {
-      /* Move sidebar to top */
-      .sidebar {
-        top: 0; left: 0; right: 0;
-        border-radius: 0;
-        box-shadow: none;
-        flex-direction: row;
-        justify-content: space-around;
-        width: 100%;
-        padding: 5px;
-        background: rgba(0,0,0,0.7);
-      }
-      .sidebar a {
-        font-size: 12px;
-        padding: 5px 8px;
-      }
-      .timeline {
-        padding-top: 60px;
-      }
-
-      /* Adjust banner size for small screens */
-      .update-banner {
-        height: 180px;
-      }
-      .update-banner h1 {
-        font-size: 18px;
-      }
-
-      /* Extra spacing in update content to avoid cramming */
-      .update-content {
-        padding: 20px;
-        margin-top: 10px;
-      }
-      .update-content h2 {
-        font-size: 18px;
-      }
-      .update-content p, .update-content ul {
-        font-size: 15px;
-        line-height: 1.9; /* more breathing space */
-      }
-      .update-content ul li {
-        margin-bottom: 8px;
-      }
+      .top-nav ul { gap: 15px; }
+      .top-nav a { font-size: 14px; }
+      .timeline-text h2 { font-size: 18px; }
+      .timeline-text p, .timeline-text ul { font-size: 14px; }
     }
   </style>
 </head>
 <body>
 
-
-  
-  <!-- SIDEBAR NAV -->
-  <div class="sidebar">
-    <a href="#update15-5" data-target="update15-5">Update 15.5</a>
-    <a href="#update16" data-target="update16">New years</a>
-    <a href="#update17" data-target="update17">GYM GAMES</a>
-    <a href="#update18" data-target="update18">Update 17</a>
+  <!-- Scroll Progress Bar -->
+  <div id="progressContainer">
+    <div id="progressBar"></div>
   </div>
-  
-  <!-- TIMELINE WRAPPER -->
+
+  <!-- Fixed Top Navigation -->
+  <nav class="top-nav">
+    <h1>Roadmap to GYM LEAGUE</h1>
+    <ul>
+      <li><a href="#update15-5" data-target="update15-5">Update 15.5</a></li>
+      <li><a href="#update16" data-target="update16">New Years</a></li>
+      <li><a href="#update17" data-target="update17">GYM GAMES</a></li>
+      <li><a href="#update18" data-target="update18">Update 17</a></li>
+    </ul>
+  </nav>
+
+  <!-- Back to Top Button -->
+  <div id="backToTop" title="Back to Top">↑</div>
+
+  <!-- Epic Alternating Timeline -->
   <div class="timeline">
-
-    <!-- Update 15.5 -->
-    <div class="update-block fade-in" id="update15-5">
-      <div class="update-banner banner15-5">
-        <h1>Update 15.5</h1>
-      </div>
-      <div class="update-content">
-        <h2>Started new season for Clan Leagues</h2>
-        <p>Introduced an exciting new season for clan competitions.</p>
-
-        <h2>Enabled Trading</h2>
-        <p>Players can now trade items and gears with each other.</p>
-
-        <h2>Bug Fixes & Codes</h2>
-        <p>Bug fixes and two new codes:</p>
-        <ul>
-          <li><strong>'400MVISITS'</strong> - 2 Mega Potions and 5 Pose Rerolls</li>
-          <li><strong>'LEAGUES2'</strong> - 2 Mega Potions and 2 Premium Aura Rerolls</li>
-        </ul>
+    
+    <!-- Timeline Item: Update 15.5 (Left) -->
+    <div class="timeline-item left fade-in update15" id="update15-5">
+      <div class="timeline-content">
+        <div class="timeline-banner banner15-5">
+          <h1>Update 15.5</h1>
+        </div>
+        <div class="timeline-text">
+          <h2>Season Kickoff</h2>
+          <p>Introduced an exciting new season for clan competitions and enabled trading—players can now exchange items and gears with each other.</p>
+          <h2>Bug Fixes &amp; Codes</h2>
+          <p>Squashed several bugs and released two exclusive codes:</p>
+          <ul>
+            <li><strong>'400MVISITS'</strong> - 2 Mega Potions and 5 Pose Rerolls</li>
+            <li><strong>'LEAGUES2'</strong> - 2 Mega Potions and 2 Premium Aura Rerolls</li>
+          </ul>
+        </div>
       </div>
     </div>
-
-    <!-- Update 16 -->
-    <div class="update-block fade-in" id="update16">
-      <div class="update-banner banner16">
-        <h1>New Years</h1>
-      </div>
-      <div class="update-content">
-        <h2>Free Gifting Area</h2>
-        <p>A limited-time gifting area available for 7 days!</p>
-
-        <h2>Three Minigames</h2>
-        <p>Engage in these exciting games and earn rewards:</p>
-        <ul>
-          <li><strong>Throwing:</strong> Build a snowball and throw it as far as you can.</li>
-          <li><strong>Lifting:</strong> Roll a snowball as fast as you can before it melts. Reach the finish line!</li>
-          <li><strong>King of the Hill:</strong> A battle royale against NPCs and other players.</li>
-        </ul>
-
-        <h2>Snowflake Coins</h2>
-        <p>Earn Snowflake Coins by completing minigames. Use them to:</p>
-        <ul>
-          <li>Buy power-ups</li>
-          <li>Purchase specific gears in a designated shop</li>
-        </ul>
+    
+    <!-- Timeline Item: New Years (Right) -->
+    <div class="timeline-item right fade-in update16" id="update16">
+      <div class="timeline-content">
+        <div class="timeline-banner banner16">
+          <h1>New Years</h1>
+        </div>
+        <div class="timeline-text">
+          <h2>Free Gifting Area</h2>
+          <p>A limited‑time gifting area available for 7 days where you can score exclusive rewards.</p>
+          <h2>Three Minigames</h2>
+          <p>Engage in thrilling games:</p>
+          <ul>
+            <li><strong>Throwing:</strong> Build a snowball and hurl it to break records.</li>
+            <li><strong>Lifting:</strong> Roll your snowball before it melts—beat the clock!</li>
+            <li><strong>King of the Hill:</strong> Dominate in a battle royale against NPCs and players.</li>
+          </ul>
+          <h2>Snowflake Coins</h2>
+          <p>Earn coins by completing challenges and use them to buy power‑ups or specific gears.</p>
+        </div>
       </div>
     </div>
-
-    <!-- Update 17 -->
-    <div class="update-block fade-in" id="update17">
-      <div class="update-banner banner17">
-        <h1>GYM GAMES</h1>
-      </div>
-      <div class="update-content">
-        <h2>Let The GYM GAMES begin</h2>
-        <p>Compete in games to win cash prices.</p>
-
-        <h2>New limited time gears</h2>
-        <p>Introducing new squid related gears.</p>
-
-        <h2>Boosts</h2>
-        <p>Consume squid foods for extra cash and muscle gain.</p>
-      </div>
-    </div>
-
-    <!-- Update 18 -->
-    <div class="update-block fade-in" id="update18">
-      <div class="update-banner banner18">
-        <h1>Update 17</h1>
-      </div>
-      <div class="update-content">
-        <h2>Aquaman Gym</h2>
-        <p>A brand new Aquaman Gym featuring 3 underwater-themed alters.</p>
-
-        <h2>New Body Alters</h2>
-        <p>Introducing aquaman-inspired alters to amplify your workout multipliers.</p>
-
-        <h2>Boosts</h2>
-        <p>Gain temporary boosts inspired by underwater creatures to maximize your training efficiency.</p>
+    
+    <!-- Timeline Item: GYM GAMES (Left) -->
+    <div class="timeline-item left fade-in update17" id="update17">
+      <div class="timeline-content">
+        <div class="timeline-banner banner17">
+          <h1>GYM GAMES</h1>
+        </div>
+        <div class="timeline-text">
+          <h2>Ultimate Test of Strength</h2>
+          <p>
+            Get ready to push your limits in high‑octane challenges where every move matters.
+            Whether you’re perfecting your throw or racing in a lifting contest, each game is crafted to reveal the champion within you.
+          </p>
+          <h2>Exclusive Limited‑Time Gears</h2>
+          <p>
+            Elevate your performance with rare, exclusive gear that not only boosts your stats but also gives you unmatched style.
+            Seize these items while they’re available and dominate the arena!
+          </p>
+          <h2>Epic Boosts</h2>
+          <p>
+            Experience powerful temporary boosts engineered for speed, strength, and agility.
+            Strategize your use to leave opponents in the dust.
+          </p>
+        </div>
       </div>
     </div>
-
+    
+    <!-- Timeline Item: Update 17 (Right) -->
+    <div class="timeline-item right fade-in update18" id="update18">
+      <div class="timeline-content">
+        <div class="timeline-banner banner18">
+          <h1>Update 17</h1>
+        </div>
+        <div class="timeline-text">
+          <h2>Aquaman Gym</h2>
+          <p>
+            Dive into a revolutionary training experience where oceanic power meets state‑of‑the‑art fitness technology.
+            Train in an immersive underwater world featuring three distinct aquatic alters designed to challenge every facet of your workout.
+          </p>
+          <h2>New Body Alters</h2>
+          <p>
+            Unlock innovative body alters inspired by the majesty of the sea.
+            These enhancements not only increase your training multipliers but also bring a creative edge to your routine.
+          </p>
+          <h2>Underwater Boosts</h2>
+          <p>
+            Harness the dynamic forces of the ocean with temporary boosts that surge your strength and endurance.
+            Let the mysterious energy of the deep propel you to new heights.
+          </p>
+        </div>
+      </div>
+    </div>
+    
   </div>
 
-  <!-- INTERSECTION OBSERVER & ACTIVE LINK LOGIC -->
+  <!-- === Intersection Observer, Nav Activation & Scroll Progress Logic === -->
   <script>
-    // Fade-in observer
-    const faders = document.querySelectorAll('.fade-in');
-    const appearOptions = {
-      threshold: 0.1,
-      rootMargin: "0px 0px -80px 0px"
+    // Mapping update IDs to their color schemes.
+    const updateColors = {
+      "update15-5": {
+        accent1: "#ff4500",
+        accent2: "#ff6347",
+        neon: "rgba(255,69,0,0.8)"
+      },
+      "update16": {
+        accent1: "#6a0dad",
+        accent2: "#8a2be2",
+        neon: "rgba(106,13,173,0.8)"
+      },
+      "update17": {
+        accent1: "#1e90ff",
+        accent2: "#00bfff",
+        neon: "rgba(30,144,255,0.8)"
+      },
+      "update18": {
+        accent1: "#20b2aa",
+        accent2: "#3cb371",
+        neon: "rgba(32,178,170,0.8)"
+      }
     };
+
+    // Fade-in Observer for Timeline Items
+    const faders = document.querySelectorAll('.fade-in');
+    const appearOptions = { threshold: 0.1, rootMargin: "0px 0px -40px 0px" };
     const appearOnScroll = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -425,28 +504,48 @@
         }
       });
     }, appearOptions);
-
     faders.forEach(fader => appearOnScroll.observe(fader));
 
-    // Sidebar Active Link Observer
-    const sections = document.querySelectorAll('.update-block');
-    const navLinks = document.querySelectorAll('.sidebar a');
-    
-    const sectionObserver = new IntersectionObserver(entries => {
+    // Top Navigation Active Link Observer & Dynamic Global Color Update
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    const navLinks = document.querySelectorAll('.top-nav a');
+    const navObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
+          // Remove active class from all nav links.
           navLinks.forEach(link => link.classList.remove('active'));
-          const activeLink = document.querySelector(
-            `.sidebar a[data-target="${entry.target.id}"]`
-          );
+          // Add active class to the corresponding nav link.
+          const activeLink = document.querySelector('.top-nav a[data-target="' + entry.target.id + '"]');
           if (activeLink) activeLink.classList.add('active');
+          // Update global CSS variables with the active update's colors.
+          const colors = updateColors[entry.target.id];
+          if (colors) {
+            document.documentElement.style.setProperty('--accent1', colors.accent1);
+            document.documentElement.style.setProperty('--accent2', colors.accent2);
+            document.documentElement.style.setProperty('--neon-glow', colors.neon);
+          }
         }
       });
-    }, { threshold: 0.5 });
+    }, { threshold: 0.2, rootMargin: "0px 0px -30% 0px" });
+    timelineItems.forEach(item => navObserver.observe(item));
 
-    sections.forEach(sec => sectionObserver.observe(sec));
-
-    
+    // Back to Top Button & Scroll Progress Logic
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+      // Update progress bar width based on scroll position.
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById('progressBar').style.width = scrolled + "%";
+    });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   </script>
 </body>
 </html>
