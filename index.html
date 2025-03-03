@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -198,7 +197,8 @@
     .timeline-item.update15 { /* Red–orange scheme */ }
     .timeline-item.update16 { /* Purple scheme */ }
     .timeline-item.update17 { /* Blue scheme */ }
-    .timeline-item.update18 { /* Teal scheme */ }
+    .timeline-item.update18 { /* Galaxy Gym scheme */ }
+    .timeline-item.update19 { /* Aquaman scheme */ }
 
     /* === Timeline Content Card === */
     .timeline-content {
@@ -240,26 +240,6 @@
       .timeline-banner { background-attachment: fixed; }
     }
 
-    /* === Timeline Text Content === */
-    .timeline-text {
-      padding: 0 10px;
-    }
-    .timeline-text h2 {
-      font-size: 20px;
-      margin-bottom: 8px;
-      color: #ffcc00;
-    }
-    .timeline-text p,
-    .timeline-text ul {
-      font-size: 16px;
-      line-height: 1.6;
-    }
-    .timeline-text ul {
-      list-style: disc inside;
-      margin-top: 8px;
-    }
-    .timeline-text ul li { margin-bottom: 4px; }
-
     /* === Banner Backgrounds === */
     .banner15-5 {
       background: url("https://tr.rbxcdn.com/180DAY-d804b670c714c3a73f63b688cb78e71c/768/432/Image/Webp/noFilter")
@@ -273,8 +253,12 @@
       background: url("Leaks/Banners/Gymgame5050g-1.png")
         center/cover no-repeat;
     }
-    .banner18 {
-      background: url("Leaks/Banners/aquaman2).png")
+    .bannerGalaxy {
+      background: url("Leaks/Banners/galaxybanner-3.png")
+        center/cover no-repeat;
+    }
+    .bannerAquaman {
+      background: url("Leaks/Banners/aquaman2.png")
         center/cover no-repeat;
     }
 
@@ -366,7 +350,8 @@
       <li><a href="#update15-5" data-target="update15-5">Update 15.5</a></li>
       <li><a href="#update16" data-target="update16">New Years</a></li>
       <li><a href="#update17" data-target="update17">GYM GAMES</a></li>
-      <li><a href="#update18" data-target="update18">Update 17</a></li>
+      <li><a href="#update18" data-target="update18">Galaxy Gym</a></li>
+      <li><a href="#update19" data-target="update19">Aquaman Gym</a></li>
     </ul>
   </nav>
 
@@ -443,17 +428,40 @@
       </div>
     </div>
     
-    <!-- Timeline Item: Update 17 (Right) -->
+    <!-- Timeline Item: Galaxy Gym (Right) -->
     <div class="timeline-item right fade-in update18" id="update18">
       <div class="timeline-content">
-        <div class="timeline-banner banner18">
-          <h1>Update 17</h1>
+        <div class="timeline-banner bannerGalaxy">
+          <h1>Galaxy Gym</h1>
         </div>
         <div class="timeline-text">
-          <h2>Aquaman Gym</h2>
+          <h2>Interstellar Workouts</h2>
+          <p>
+            Experience workouts that are truly out of this world, with gravity‑defying exercises and stellar challenges designed to push your limits.
+          </p>
+          <h2>Cosmic Equipment</h2>
+          <p>
+            Train with state‑of‑the‑art cosmic equipment that harnesses the energy of the stars, providing an experience like no other.
+          </p>
+          <h2>Zero‑Gravity Challenges</h2>
+          <p>
+            Take on zero‑gravity challenges that simulate the vastness of space, making every session an extraordinary adventure.
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Timeline Item: Aquaman Gym (Left) -->
+    <div class="timeline-item left fade-in update19" id="update19">
+      <div class="timeline-content">
+        <div class="timeline-banner bannerAquaman">
+          <h1>Aquaman Gym</h1>
+        </div>
+        <div class="timeline-text">
+          <h2>Aquatic Training</h2>
           <p>
             Dive into a revolutionary training experience where oceanic power meets state‑of‑the‑art fitness technology.
-            Train in an immersive underwater world featuring three distinct aquatic alters designed to challenge every facet of your workout.
+            Train in an immersive underwater world featuring distinct aquatic alters designed to challenge every facet of your workout.
           </p>
           <h2>New Body Alters</h2>
           <p>
@@ -491,6 +499,11 @@
         neon: "rgba(30,144,255,0.8)"
       },
       "update18": {
+        accent1: "#FF1493",
+        accent2: "#C71585",
+        neon: "rgba(255,20,147,0.8)"
+      },
+      "update19": {
         accent1: "#20b2aa",
         accent2: "#3cb371",
         neon: "rgba(32,178,170,0.8)"
